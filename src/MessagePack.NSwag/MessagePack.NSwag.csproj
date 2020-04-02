@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>MessagePack.NSwag</AssemblyName>
+    <RootNamespace>MessagePack.NSwag</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/loloc/MessagePack.WebAPI.Client</PackageProjectUrl>
+    <Version>1.0.0-alpha1</Version>
+    <Description>A library extending NSwag with the capability to handle MessagePack formatted API's.</Description>
+    <Authors>Laurent Christen</Authors>
+    <Company>Laurent Christen</Company>
+    <Product>MessagePack.WebApi.Client</Product>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\MessagePack.WebApi.Client.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MessagePack.Annotations" Version="2.1.90" />
+    <PackageReference Include="NJsonSchema" Version="10.1.12" />
+    <PackageReference Include="NSwag.Core" Version="13.3.0" />
+    <PackageReference Include="NSwag.Generation.WebApi" Version="13.3.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>    
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\MessagePack.WebApi.Client.snk" Link="MessagePack.WebApi.Client.snk" />
+  </ItemGroup>
+
+</Project>
