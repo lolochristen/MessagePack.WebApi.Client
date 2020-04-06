@@ -1,0 +1,204 @@
+{
+  "x-generator": "NSwag v13.3.0.0 (NJsonSchema v10.1.12.0 (Newtonsoft.Json v11.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "MessagePack Contacts Service",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5001",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/api/Contact/{id}": {
+      "get": {
+        "tags": [
+          "Contact"
+        ],
+        "operationId": "Contact_GetContact",
+        "produces": [
+          "application/x-msgpack",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          }
+        }
+      }
+    },
+    "/api/Contact/All": {
+      "get": {
+        "tags": [
+          "Contact"
+        ],
+        "operationId": "Contact_GetAll",
+        "produces": [
+          "application/x-msgpack",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Contact"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Contact": {
+      "post": {
+        "tags": [
+          "Contact"
+        ],
+        "operationId": "Contact_UpdateContact",
+        "consumes": [
+          "application/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "name": "contact",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Contact/Download/{id}": {
+      "get": {
+        "tags": [
+          "Contact"
+        ],
+        "operationId": "Contact_Download",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Contact": {
+      "type": "object",
+      "required": [
+        "id",
+        "gender"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "x-msgpack-key": 0
+        },
+        "firstName": {
+          "type": "string",
+          "x-msgpack-key": 1
+        },
+        "lastName": {
+          "type": "string",
+          "x-msgpack-key": 2
+        },
+        "nothing": {
+          "type": "string",
+          "x-msgpack-ignore": true
+        },
+        "emailAdress": {
+          "type": "string",
+          "x-msgpack-key": 3
+        },
+        "phoneNumber": {
+          "type": "string",
+          "x-msgpack-key": 4
+        },
+        "gender": {
+          "$ref": "#/definitions/Genders",
+          "x-msgpack-key": 5
+        },
+        "standardAddress": {
+          "$ref": "#/definitions/PostAddress",
+          "x-msgpack-key": 6
+        }
+      },
+      "x-msgpack": true
+    },
+    "Genders": {
+      "type": "integer",
+      "description": "",
+      "x-enumNames": [
+        "Male",
+        "Female",
+        "Mixed"
+      ],
+      "enum": [
+        0,
+        1,
+        2
+      ]
+    },
+    "PostAddress": {
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string",
+          "x-msgpack-key": 0
+        },
+        "zip": {
+          "type": "string",
+          "x-msgpack-key": 1
+        },
+        "city": {
+          "type": "string",
+          "x-msgpack-key": 2
+        },
+        "countryCode": {
+          "type": "string",
+          "x-msgpack-key": 3
+        }
+      },
+      "x-msgpack": true
+    }
+  }
+}

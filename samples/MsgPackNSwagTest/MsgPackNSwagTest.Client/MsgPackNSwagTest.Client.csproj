@@ -6,7 +6,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="OpenAPIs\ContactsServiceJson.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <OpenApiReference Include="OpenAPIs\ContactsServiceJson.json" CodeGenerator="NSwagCSharp" Namespace="MsgPackNSwagTest.Client.Json" ClassName="ContactsService">
+      <SourceUri>https://localhost:5001/swagger/v1/swagger.json</SourceUri>
+    </OpenApiReference>
+   <!-- due to an error in NSwag the ApiException cannot be recreated within the given namespace so we need to reference it --> 
+    <OpenApiReference Include="OpenAPIs\ContactsServiceMessagePack.json" Options="/templatedirectory:..\..\..\src\MessagePack.NSwag\Templates /ExceptionClass:MsgPackNSwagTest.Client.Json.ApiException" Namespace="MsgPackNSwagTest.Client.MessagePack" ClassName="ContactsService">
+      <CodeGenerator>NSwagCSharp</CodeGenerator>
+      <SourceUri>https://localhost:5001/swagger/v1/swagger.json</SourceUri>
+    </OpenApiReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MessagePack" Version="2.1.90" />
+    <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="3.1.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NSwag.ApiDescription.Client" Version="13.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
