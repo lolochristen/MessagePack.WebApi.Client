@@ -23,6 +23,32 @@ namespace MessagePack.WebApi.Client
                 client.DefaultRequestHeaders.Accept.Add(_contentTypeMediaTypeHeaderValue);
         }
 
+        public static async Task<T> GetMessagePackAsync<T>(this HttpClient client, Uri requestUri)
+        {
+            if (client == null)
+                throw new ArgumentNullException(nameof(client));
+
+            using (var request = new HttpRequestMessage(HttpMethod.Get, requestUri))
+            {
+                request.Headers.Add("Accept", ContentTypeString);
+                var response = await client.SendAsync(request).ConfigureAwait(false);
+                return await response.Content.ReadAsMessagePackAsync<T>().ConfigureAwait(false);
+            }
+        }
+
+        public static async Task<T> GetMessagePackAsync<T>(this HttpClient client, string requestUri)
+        {
+            if (client == null)
+                throw new ArgumentNullException(nameof(client));
+
+            using (var request = new HttpRequestMessage(HttpMethod.Get, requestUri))
+            {
+                request.Headers.Add("Accept", ContentTypeString);
+                var response = await client.SendAsync(request).ConfigureAwait(false);
+                return await response.Content.ReadAsMessagePackAsync<T>().ConfigureAwait(false);
+            }
+        }
+
         public static async Task<HttpResponseMessage> PostAsMessagePackAsync<T>(this HttpClient client, Uri requestUri, T value)
         {
             if (client == null)

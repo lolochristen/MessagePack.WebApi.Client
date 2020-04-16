@@ -61,13 +61,13 @@ namespace MessagePack.WebApi.Client
         public override async Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
             TransportContext transportContext)
         {
-            await MessagePackSerializer.SerializeAsync(writeStream, value, SerializerOptions).ConfigureAwait(false);
+            await MessagePackSerializer.SerializeAsync(type, writeStream, value, SerializerOptions).ConfigureAwait(false);
         }
 
         public override async Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
             TransportContext transportContext, CancellationToken cancellationToken)
         {
-            await MessagePackSerializer.SerializeAsync(writeStream, value, SerializerOptions).ConfigureAwait(false);
+            await MessagePackSerializer.SerializeAsync(type, writeStream, value, SerializerOptions).ConfigureAwait(false);
         }
 
         public override async Task<object> ReadFromStreamAsync(Type type, Stream readStream, HttpContent content, IFormatterLogger formatterLogger,
