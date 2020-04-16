@@ -1,0 +1,89 @@
+﻿@page "/contactlist"
+@using MsgPackBlazor.Shared
+@using MessagePack.WebApi.Client
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h1>Contacts</h1>
+
+<button class="btn btn-primary" @onclick="Reload">Reload</button>
+<select @bind="content_type">
+    <option value="msgpack">application/x-msgpack</option>
+    <option value="json">application/json</option>
+</select>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<div class="text-info">@msg</div>
+
+@if (contacts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>eMail</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in contacts)
+            {
+                <tr>
+                    <td>@contact.Id</td>
+                    <td>@contact.FirstName</td>
+                    <td>@contact.LastName</td>
+                    <td>@contact.EmailAdress</td>
+                    <td>@contact.PhoneNumber</td>
+                    <td>@contact.StandardAddress.Street</td>
+                    <td>@contact.StandardAddress.City</td>
+                    <td>
+                        <button class="btn btn-light" @onclick="() => EditContact(contact.Id)">Edit</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Contact[] contacts;
+    private string msg;
+    private string content_type;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Reload();
+    }
+
+    private async Task Reload()
+    {
+        var start = DateTime.Now;
+        contacts = null;
+        try
+        {
+            if (content_type == "json")
+                contacts = await Http.GetJsonAsync<Contact[]>("api/contacts/all");
+            else
+                contacts = await Http.GetMessagePackAsync<Contact[]>("api/contacts/all");
+
+            msg = $"Loading duration: {(DateTime.Now - start):c}";
+        }
+        catch (Exception exp)
+        {
+            msg = exp.ToString();
+        }
+    }
+
+    private EventCallback EditContact(int id)
+    {
+        NavigationManager.NavigateTo($"contactedit/{id}");
+        return EventCallback.Empty;
+    }
+}

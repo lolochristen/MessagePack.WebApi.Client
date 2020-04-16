@@ -1,0 +1,47 @@
+﻿@page "/contactedit/{Id:int}"
+@using MessagePack.WebApi.Client
+@using MsgPackBlazor.Shared
+@inject HttpClient Http
+<h3>Edit Contact @Id</h3>
+
+@if (_contact != null)
+{
+
+    <EditForm Model="@_contact" OnValidSubmit="Save">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        
+        <div class="form-group">
+            <label>First Name:</label>
+            <input class="form-control" @bind="_contact.FirstName" type="text" />
+        </div>
+        <div class="form-group">
+            <label>Last Name:</label>
+            <input class="form-control" @bind="_contact.LastName" type="text" />
+        </div>
+        <button class="btn btn-primary" type="submit">Save</button>        
+
+    </EditForm>
+
+ }
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private Contact _contact;
+    private string _message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _contact = await Http.GetMessagePackAsync<Contact>("api/contacts/" + Id);
+    }
+
+    private async Task Save()
+    {
+        await Http.PostAsMessagePackAsync<Contact>("api/contacts", _contact);
+        _message = "Saved.";
+    }
+
+}
