@@ -29,6 +29,7 @@ else
                 <th>Last Name</th>
                 <th>eMail</th>
                 <th>Phone</th>
+                <th>Gender</th>
                 <th>Street</th>
                 <th>City</th>
                 <th>Country</th>
@@ -43,11 +44,12 @@ else
                 <td>@contact.LastName</td>
                 <td>@contact.EmailAdress</td>
                 <td>@contact.PhoneNumber</td>
+                <td>@contact.Gender</td>
                 <td>@contact.StandardAddress.Street</td>
                 <td>@contact.StandardAddress.Zip @contact.StandardAddress.City</td>
                 <td>@contact.StandardAddress.CountryCode</td>
                 <td>
-                    <button class="btn btn-light" @onclick="() => EditContact(contact.Id)">Edit</button>
+                    <button class="btn btn-secondary" @onclick="() => EditContact(contact.Id)">Edit</button>
                 </td>
             </tr>
             }

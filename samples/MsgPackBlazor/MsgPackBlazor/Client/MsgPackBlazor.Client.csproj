@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <!-- Install MSBuild Task (with PrivateAssets="All", i.e. build time dependency only) -->
     <PackageReference Include="MessagePack.MSBuild.Tasks" Version="*" PrivateAssets="All" />
   </ItemGroup>
