@@ -30,23 +30,27 @@ else
                 <th>Last Name</th>
                 <th>eMail</th>
                 <th>Phone</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>Country</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var contact in contacts)
             {
-                <tr>
-                    <td>@contact.Id</td>
-                    <td>@contact.FirstName</td>
-                    <td>@contact.LastName</td>
-                    <td>@contact.EmailAdress</td>
-                    <td>@contact.PhoneNumber</td>
-                    <td>@contact.StandardAddress.Street</td>
-                    <td>@contact.StandardAddress.City</td>
-                    <td>
-                        <button class="btn btn-light" @onclick="() => EditContact(contact.Id)">Edit</button>
-                    </td>
-                </tr>
+            <tr>
+                <td>@contact.Id</td>
+                <td>@contact.FirstName</td>
+                <td>@contact.LastName</td>
+                <td>@contact.EmailAdress</td>
+                <td>@contact.PhoneNumber</td>
+                <td>@contact.StandardAddress.Street</td>
+                <td>@contact.StandardAddress.Zip @contact.StandardAddress.City</td>
+                <td>@contact.StandardAddress.CountryCode</td>
+                <td>
+                    <button class="btn btn-light" @onclick="() => EditContact(contact.Id)">Edit</button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
