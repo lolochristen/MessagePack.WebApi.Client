@@ -23,7 +23,7 @@ namespace MessagePack.WebApi.Client
                 client.DefaultRequestHeaders.Accept.Add(_contentTypeMediaTypeHeaderValue);
         }
 
-        public static async Task<T> GetMessagePackAsync<T>(this HttpClient client, Uri requestUri)
+        public static async Task<T> GetFromMessagePackAsync<T>(this HttpClient client, Uri requestUri)
         {
             if (client == null)
                 throw new ArgumentNullException(nameof(client));
@@ -36,7 +36,7 @@ namespace MessagePack.WebApi.Client
             }
         }
 
-        public static async Task<T> GetMessagePackAsync<T>(this HttpClient client, string requestUri)
+        public static async Task<T> GetFromMessagePackAsync<T>(this HttpClient client, string requestUri)
         {
             if (client == null)
                 throw new ArgumentNullException(nameof(client));
