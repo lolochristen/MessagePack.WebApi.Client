@@ -1,6 +1,5 @@
 ﻿@page "/contactlist"
 @using MsgPackBlazor.Shared
-@using MessagePack.WebApi.Client
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 
@@ -73,9 +72,9 @@ else
         try
         {
             if (content_type == "json")
-                contacts = await Http.GetJsonAsync<Contact[]>("api/contacts/all");
+                contacts = await Http.GetFromJsonAsync<Contact[]>("api/contacts/all");
             else
-                contacts = await Http.GetMessagePackAsync<Contact[]>("api/contacts/all");
+                contacts = await Http.GetFromMessagePackAsync<Contact[]>("api/contacts/all");
 
             msg = $"Loading duration: {(DateTime.Now - start):c}";
         }

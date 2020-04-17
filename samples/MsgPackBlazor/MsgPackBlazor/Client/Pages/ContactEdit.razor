@@ -1,11 +1,11 @@
 ﻿@page "/contactedit/{Id:int}"
-@using MessagePack.WebApi.Client
 @using MsgPackBlazor.Shared
 @inject HttpClient Http
 <h3>Edit Contact @Id</h3>
 
 @if (_contact != null)
 {
+    <div class="text-info">@_message</div>
 
     <EditForm Model="@_contact" OnValidSubmit="Save">
         <DataAnnotationsValidator />
@@ -22,7 +22,6 @@
         <button class="btn btn-primary" type="submit">Save</button>        
 
     </EditForm>
-
  }
 
 @code {
@@ -35,7 +34,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _contact = await Http.GetMessagePackAsync<Contact>("api/contacts/" + Id);
+        _contact = await Http.GetFromMessagePackAsync<Contact>("api/contacts/" + Id);
     }
 
     private async Task Save()
