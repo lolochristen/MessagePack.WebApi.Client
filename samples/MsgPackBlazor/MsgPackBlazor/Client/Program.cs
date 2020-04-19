@@ -19,13 +19,14 @@ namespace MsgPackBlazor.Client
 
             builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-            // define a minimalistic set of resolver because Blazor WASM runtime cannot execute System.Reflection.Emit operations
+            // Register generated AOT MessagePack Resolver
             StaticCompositeResolver.Instance.Register(
-                MessagePack.Resolvers.GeneratedResolver.Instance
-                , MessagePack.Resolvers.BuiltinResolver.Instance
-                , MessagePack.Resolvers.DynamicGenericResolver.Instance
+                GeneratedResolver.Instance,
+                StandardResolver.Instance
             );
-            MessagePackSerializer.DefaultOptions = new MessagePackSerializerOptions(StaticCompositeResolver.Instance);
+
+            MessagePackSerializer.DefaultOptions =
+                MessagePackSerializerOptions.Standard.WithResolver(StaticCompositeResolver.Instance);
 
             await builder.Build().RunAsync();
         }

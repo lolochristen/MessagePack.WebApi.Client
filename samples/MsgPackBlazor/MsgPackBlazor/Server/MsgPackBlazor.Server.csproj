@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="GenFu" Version="1.6.0" />
-    <PackageReference Include="MessagePack.AspNetCoreMvcFormatter" Version="2.1.90" />
+    <PackageReference Include="MessagePack.AspNetCoreMvcFormatter" Version="2.1.115" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.0-preview4.20210.8" />
   </ItemGroup>
 
