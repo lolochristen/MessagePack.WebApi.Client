@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/loloc/MessagePack.WebAPI.Client</PackageProjectUrl>
-    <Version>1.0.0-alpha2</Version>
+    <Version>1.0.0</Version>
     <Description>A library extending System.Net.Http.HttpClient with the capability to serialize/deserialize MessagePack formatted messages.</Description>
     <Authors>Laurent Christen</Authors>
     <Company>Laurent Christen</Company>
@@ -24,7 +24,7 @@
   <ItemGroup>
     <PackageReference Include="MessagePack" Version="2.1.115" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -26,7 +26,7 @@ namespace MessagePack.WebApi.Client
 
         protected override bool TryComputeLength(out long length)
         {
-            length = 0;
+            length = -1;
             return false;
         }
     }

@@ -9,9 +9,12 @@ using System.Threading.Tasks;
 
 namespace MessagePack.WebApi.Client
 {
+    /// <summary>
+    /// MessagePack MediaType Formatter
+    /// </summary>
     public class MessagePackMediaTypeFormatter : MediaTypeFormatter
     {
-        private static readonly MediaTypeHeaderValue _contentTypeMediaTypeHeader = MediaTypeHeaderValue.Parse(MessagePackHttpClientExtensions.ContentTypeString);
+        private static readonly MediaTypeHeaderValue ContentTypeMediaTypeHeader = MediaTypeHeaderValue.Parse(MessagePackHttpClientExtensions.ContentTypeString);
 
         public static readonly MessagePackMediaTypeFormatter DefaultInstance = new MessagePackMediaTypeFormatter();
 
@@ -36,7 +39,7 @@ namespace MessagePack.WebApi.Client
 
         public MessagePackMediaTypeFormatter(MessagePackSerializerOptions options = null)
         {
-            SupportedMediaTypes.Add(_contentTypeMediaTypeHeader);
+            SupportedMediaTypes.Add(ContentTypeMediaTypeHeader);
             SerializerOptions = options;
         }
 
@@ -55,7 +58,7 @@ namespace MessagePack.WebApi.Client
             if (headers == null)
                 throw new ArgumentNullException(nameof(headers));
 
-            headers.ContentType = _contentTypeMediaTypeHeader;
+            headers.ContentType = ContentTypeMediaTypeHeader;
         }
 
         public override async Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
@@ -67,7 +70,7 @@ namespace MessagePack.WebApi.Client
         public override async Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
             TransportContext transportContext, CancellationToken cancellationToken)
         {
-            await MessagePackSerializer.SerializeAsync(type, writeStream, value, SerializerOptions).ConfigureAwait(false);
+            await MessagePackSerializer.SerializeAsync(type, writeStream, value, SerializerOptions, cancellationToken).ConfigureAwait(false);
         }
 
         public override async Task<object> ReadFromStreamAsync(Type type, Stream readStream, HttpContent content, IFormatterLogger formatterLogger,
