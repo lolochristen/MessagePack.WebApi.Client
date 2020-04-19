@@ -2,6 +2,8 @@
 A library (Formatters, Client Generators) for simplifing ASP.NET Core based WebApi's using the lightning fast serializer MessagePack.
 It does provide a end-to-end solutions  to use MessagePack as a serializer/formatter for Api including documentation using Swagger (NSwag) and client generation (NSwag/NJsonSchema). Finally your API's are almost 3 times faster then using Json.
 
+[![NuGet Version](https://img.shields.io/nuget/v/MessagePack.WebApi.Client.svg)](https://www.nuget.org/packages?q=MessagePack.WebApi.Client)
+
 ## MessagePack.WebApi.Client
 
 - System.Net.HttpClient extensions Methods:
@@ -14,7 +16,6 @@ It does provide a end-to-end solutions  to use MessagePack as a serializer/forma
 ```
 
 - MessagePackContent Class implementing System.Net.Http.HttpContent
-
 
 ## MessagePack.NSwag
 
@@ -59,10 +60,12 @@ nswag openapi2csclient /input:https://localhost:5001/swagger/v1/swagger.json /cl
 
 ```
 
-## Performance Test and Sample
-The sample MsgPackNSwagTest shows how to integrate all the components. It containts also a simple performance test to compare MessagePack and Json. The Results shows that MessagePack is by far more efficient thant Json. Sure, the result will vary in depend on many different factors, but still: Go for MessagePack.
+## Performance Test and Samples
+**MsgPackNSwagTest**: The sample shows how to integrate all the components. It containts also a simple performance test to compare MessagePack and Json. The Results shows that MessagePack is by far more efficient thant Json. Sure, the result will vary in depend on many different factors, but still: Go for MessagePack.
 - MessagePack: 00.589 s
 - JsonSerializer: 01.717 s 
+
+**MsgPackBlazor**: Sample of of a Blazor WASM (preview) application using MessagePack for API calls. Client/Server communication is factor 2-3 times faster then Json Serializer (System.Net.Http.Json)
 
 ## Libraries, References used
 - https://github.com/neuecc/MessagePack-CSharp
