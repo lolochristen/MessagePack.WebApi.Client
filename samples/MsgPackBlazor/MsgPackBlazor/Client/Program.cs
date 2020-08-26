@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text;
+using MatBlazor;
 using MessagePack;
 using MessagePack.Resolvers;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -27,6 +28,16 @@ namespace MsgPackBlazor.Client
 
             MessagePackSerializer.DefaultOptions =
                 MessagePackSerializerOptions.Standard.WithResolver(StaticCompositeResolver.Instance);
+
+            builder.Services.AddMatToaster(config =>
+            {
+                config.Position = MatToastPosition.BottomRight;
+                config.PreventDuplicates = true;
+                config.NewestOnTop = true;
+                config.ShowCloseButton = true;
+                config.MaximumOpacity = 95;
+                config.VisibleStateDuration = 3000;
+            });
 
             await builder.Build().RunAsync();
         }

@@ -1,0 +1,127 @@
+﻿@page "/contactsMaterial"
+@using MsgPackBlazor.Shared
+@using System.Runtime.CompilerServices
+@inject HttpClient Http
+@inject IMatToaster Toaster
+
+
+
+<h3>Contacts (Material Design)</h3>
+
+<MatButton OnClick="@Reload">Reload</MatButton>
+
+<MatTable Class="mat-elevation-z5" Items="@contacts" LoadInitialData="true" Striped="true" FilterByColumnName="LastName" DebounceMilliseconds="150" PageSize="25" AllowSelection="true">
+    <MatTableHeader>
+        <th>
+            <div style="width:135px;">
+                <MatButton Icon="playlist_add" Label="New" OnClick="@((e) => OpenNewDialog())" Raised="true"></MatButton>
+            </div>
+        </th>
+        <th>Id</th>
+        <th>First Name</th>
+        <th style="min-width:180px;">Last Name</th>
+        <th>Email</th>
+    </MatTableHeader>
+    <MatTableRow Context="contactRow">
+        <td>
+            <MatIconButton Icon="edit" OnClick="@(() => OpenEditDialog(contactRow))"></MatIconButton>
+        </td>
+        <td>@String.Format("{0:d}", contactRow.Id)</td>
+        <td>@contactRow.FirstName</td>
+        <td>@contactRow.LastName</td>
+        <td>@contactRow.EmailAdress</td>
+    </MatTableRow>
+</MatTable>
+
+<MatDialog @bind-IsOpen="@dialogOpen">
+    <MatDialogTitle>Contact</MatDialogTitle>
+    <MatDialogContent>
+        <EditForm Model="@CurrentContact" OnValidSubmit="@SubmitContact">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <fieldset>
+                <div class="form-group">
+                    <MatTextField @bind-Value="@CurrentContact.FirstName" Label="First Name" Icon="name" FullWidth="true"></MatTextField>
+                </div>
+                <div class="form-group">
+                    <MatTextField @bind-Value="@CurrentContact.LastName" Label="Last Name" Icon="name" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                </div>
+                <div class="form-group">
+                    <MatTextField @bind-Value="@CurrentContact.EmailAdress" Label="EMail" Icon="email" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                </div>
+            </fieldset>
+        </EditForm>
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { dialogOpen = false; })">Cancel</MatButton>
+        <MatButton OnClick="@SubmitContact">Save</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code {
+    private Contact[] contacts;
+    private Contact CurrentContact { get; set; } = new Contact();
+    private bool dialogOpen = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Reload();
+    }
+
+    private async Task Reload()
+    {
+        var start = DateTime.Now;
+        contacts = null;
+        try
+        {
+            contacts = await Http.GetFromMessagePackAsync<Contact[]>("api/contacts/all");
+            //msg = $"Loading duration: {(DateTime.Now - start):c}";
+            Toaster.Add("Loaded.", MatToastType.Success);
+        }
+        catch (Exception exp)
+        {
+            //msg = exp.ToString();
+        }
+    }
+
+    public void OpenNewDialog()
+    {
+
+    }
+
+    public void OpenDeleteDialog(int id)
+    {
+
+    }
+
+
+    public void OpenEditDialog(Contact contact)
+    {
+        // reload?
+        CurrentContact = contact;
+        dialogOpen = true;
+    }
+
+
+
+    public void Update(Contact contact)
+    {
+
+    }
+
+    public async Task SubmitContact()
+    {
+        try
+        {
+            await Http.PostAsMessagePackAsync<Contact>("api/contacts", CurrentContact);
+            Toaster.Add("Contact saved.", MatToastType.Success);
+
+            dialogOpen = false;
+        }
+        catch (Exception exp)
+        {
+            Toaster.Add(exp.Message, MatToastType.Danger, "Saving Failed");
+        }
+    }
+
+}

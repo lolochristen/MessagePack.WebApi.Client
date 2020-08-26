@@ -31,6 +31,7 @@ namespace MsgPackBlazor.Server.Controllers
         [HttpGet("All")]
         public Task<List<Contact>> GetAll()
         {
+            _data[0].LastName += "I";
              return Task.FromResult(_data);
         }
 
