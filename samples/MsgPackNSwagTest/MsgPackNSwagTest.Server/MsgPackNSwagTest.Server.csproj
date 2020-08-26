@@ -6,9 +6,9 @@
 
   <ItemGroup>
     <PackageReference Include="GenFu" Version="1.6.0" />
-    <PackageReference Include="MessagePack.AspNetCoreMvcFormatter" Version="2.1.90" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-    <PackageReference Include="NSwag.AspNetCore" Version="13.3.0" />
+    <PackageReference Include="MessagePack.AspNetCoreMvcFormatter" Version="2.1.165" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.7.0" />
   </ItemGroup>
 
   <ItemGroup>
