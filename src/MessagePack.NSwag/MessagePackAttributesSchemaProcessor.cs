@@ -26,13 +26,15 @@ namespace MessagePack.NSwag
                 {
                     var name = context.Generator.GetPropertyName(null, properties.ToContextualMember());
 
-                    if (!context.Schema.Properties.ContainsKey(name))
+                    var propItem = context.Schema.Properties.FirstOrDefault(p => p.Key.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (propItem.Value == null)
                         continue;
 
-                    var schemaProp = context.Schema.Properties[name];
+                    var schemaProp = propItem.Value;
 
                     var keyAttr = properties.GetCustomAttributes(true).OfType<MessagePack.KeyAttribute>().SingleOrDefault();
-                    if (keyAttr != null && context.Schema.Properties.ContainsKey(name))
+                    if (keyAttr != null)
                     {
                         if (schemaProp.ExtensionData == null)
                             schemaProp.ExtensionData = new Dictionary<string, object>();
