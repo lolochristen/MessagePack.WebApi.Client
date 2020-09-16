@@ -18,10 +18,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MessagePack.Annotations" Version="2.1.165" />
-    <PackageReference Include="NJsonSchema" Version="10.1.24" />
-    <PackageReference Include="NSwag.Core" Version="13.7.0" />
-    <PackageReference Include="NSwag.Generation.WebApi" Version="13.7.0" />
+    <PackageReference Include="MessagePack.Annotations" Version="2.1.194" />
+    <PackageReference Include="NJsonSchema" Version="10.1.26" />
+    <PackageReference Include="NSwag.Core" Version="13.7.3" />
+    <PackageReference Include="NSwag.Generation.WebApi" Version="13.7.3" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
